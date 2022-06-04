@@ -17,7 +17,7 @@ export default class LibrarianDashboard extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>Librarian dashboard</h3>
         </header>
       </div>
     );

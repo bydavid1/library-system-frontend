@@ -13,10 +13,10 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="App">
-          <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
+            <Switch>
+              <Route exact path={["/", "/home"]} component={Home} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
         </div>
       </Router>
     );
