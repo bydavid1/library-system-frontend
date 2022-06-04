@@ -1,39 +1,26 @@
-import React from 'react'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import Login from './pages/login'
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-          <div className="container">
-            <Link className="navbar-brand" to={'/sign-in'}>
-              My Ulibrary
-            </Link>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-in'}>
-                    Login
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route path="/sign-in" element={<Login />} />
-            </Routes>
-          </div>
+import React, { Component } from "react";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { Router, Switch, Route,} from 'react-router-dom'
+
+import Login from './pages/login'
+import Home from './pages/home'
+
+import { history } from './helpers/history';
+
+class App extends Component {
+  render() {
+    return (
+      <Router history={history}>
+        <div className="App">
+          <Switch>
+            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
         </div>
-      </div>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
 
 export default App;

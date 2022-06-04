@@ -1,13 +1,14 @@
 import axios from "axios";
 
-import { API_URL } from '../utils/constants'
+import { API_URL } from '../helpers/constants'
 
 class AuthService {
-  login(username, password) {
+  login(email, password) {
     return axios
-      .post(API_URL + "auth/signin", { username, password })
+      .post(API_URL + "auth/login", { email, password })
       .then((response) => {
-        if (response.data.accessToken) {
+        if (response.data.token) {
+          console.log(response.data);
           localStorage.setItem("user", JSON.stringify(response.data));
         }
         return response.data;
