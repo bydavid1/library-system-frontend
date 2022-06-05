@@ -51,7 +51,7 @@ class Home extends Component {
       <div>
         {showLibrarianDash && (
           <LibrarianDashboard>
-            <div className="container">
+            <div className="container text-white">
               <h3>Bienvenido {currentUser.first_name}</h3>
             </div>
           </LibrarianDashboard>

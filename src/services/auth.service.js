@@ -16,6 +16,7 @@ class AuthService {
   }
 
   logout() {
+    console.log('romoving session');
     localStorage.removeItem("user");
   }
 

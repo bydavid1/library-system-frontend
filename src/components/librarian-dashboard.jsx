@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class LibrarianDashboard extends Component {
+import { logout } from "../actions/auth.actions";
+
+class LibrarianDashboard extends Component {
 
   constructor(props) {
     super(props);
+
+    this.logOut = this.logOut.bind(this);
+  }
+
+  logOut() {
+    this.props.dispatch(logout());
   }
 
   render() {
@@ -14,13 +23,15 @@ export default class LibrarianDashboard extends Component {
           <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
               <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <Link to='/' className="nav-link px-2 text-white">Home</Link>
+                <Link to='/home' className="nav-link px-2 text-white">Home</Link>
                 <Link to='/borrowings' className="nav-link px-2 text-white">Requests</Link>
                 <Link to='/users' className="nav-link px-2 text-white">Users</Link>
                 <Link to='/books' className="nav-link px-2 text-white">Books</Link>
               </ul>
               <div className="text-end">
-                <button type="button" className="btn btn-outline-light me-2">Logout</button>
+                <Link to='/' className="btn btn-outline-light me-2" onClick={this.logOut}>
+                  Logout
+                </Link>
               </div>
             </div>
           </div>
@@ -32,3 +43,11 @@ export default class LibrarianDashboard extends Component {
     );
   }
 }
+
+function mapStateToProps(dispatch) {
+  return {
+    dispatch
+  };
+}
+
+export default connect(mapStateToProps)(LibrarianDashboard);
