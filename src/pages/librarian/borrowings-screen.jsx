@@ -15,7 +15,7 @@ class BorrowingsScreen extends Component {
     }
   }
 
-  componentDidMount() {
+  getAllBorrowings() {
     borrowingService.getAllBorrowings()
       .then(response => {
         this.setState({
@@ -34,6 +34,61 @@ class BorrowingsScreen extends Component {
         });
       }
     );
+  }
+
+  componentDidMount() {
+    this.getAllBorrowings();
+  }
+
+  confirmBorrowing(id) {
+    borrowingService.confirmBorrowing()
+      .then(response => {
+        console.log(response.data);
+        this.getAllBorrowings();
+      }).catch(error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      })
+  }
+
+  refuseBorrowing(id) {
+    borrowingService.refuseBorrowing()
+      .then(response => {
+        console.log(response.data);
+        this.getAllBorrowings();
+      }).catch(error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      })
+  }
+
+  returnBook(id) {
+    borrowingService.returnBook()
+      .then(response => {
+        console.log(response.data);
+        this.getAllBorrowings();
+      }).catch(error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      })
   }
  
   render() { 
@@ -73,11 +128,15 @@ class BorrowingsScreen extends Component {
                             <th scope="col">User</th>
                             <th scope="col">Book</th>
                             <th scope="col">Author</th>
+                            <th scope="col">Status</th>
                             <th className="text-center" scope="col">Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <BorrowingRow borrowings={this.state.borrowings}/>
+                          <BorrowingRow borrowings={this.state.borrowings} 
+                            onConfirm={this.confirmBorrowing} 
+                            onRefuse={this.refuseBorrowing}
+                            onReturn={this.returnBook}/>
                         </tbody>
                       </table>
                     </div>

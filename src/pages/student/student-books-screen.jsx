@@ -1,38 +1,58 @@
 import React, { Component } from 'react';
 import StudentDashboard from '../../components/student-dashboard';
 import StudentBookRow from '../../components/student/student-book-row';
+import bookService from '../../services/book.service';
 
 class StudentBooksScreen extends Component {
 
   constructor(props) {
     super(props);
     
-    this.books = [
-      {
-        created_at: '11/11/11',
-        title: 'The best book',
-        author: 'Byron Jimenez',
-        published_year: '2021',
-        genre: 'Suspense',
-        status: 'available'
+    this.state = {
+      books: [],
+      message: ""
+    }
+  }
+
+  componentDidMount() {
+    this.getBooksForStudent();
+  }
+
+  getBooksForStudent() {
+    bookService.getBooksForStudent()
+      .then(response => {
+        this.setState({
+          message: "",
+          books: response.data
+        })
       },
-      {
-        created_at: '11/11/11',
-        title: 'The best book',
-        author: 'Byron Jimenez',
-        published_year: '2021',
-        genre: 'Suspense',
-        status: 'unavailable'
-      },
-      {
-        created_at: '11/11/11',
-        title: 'The best book',
-        author: 'Byron Jimenez',
-        published_year: '2021',
-        genre: 'Suspense',
-        status: 'unavailable'
-      },
-    ];
+      error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
+  }
+  returnBook(id) {
+    bookService.requestBook(id)
+      .then(response => {
+        console.log(response.data);
+        this.getBooksForStudent();
+      }).catch(error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      })
   }
 
   render() { 
@@ -57,6 +77,13 @@ class StudentBooksScreen extends Component {
               <div className="col-lg-12">
                 <div className="card">
                   <div className="card-body">
+                  {this.state.message && (
+                    <div className="form-group mb-4">
+                      <div className="alert alert-danger" role="alert">
+                        {this.state.message}
+                      </div>
+                    </div>
+                  )}
                     <div className="table-responsive">
                       <table className="table">
                         <thead>
@@ -71,7 +98,7 @@ class StudentBooksScreen extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <StudentBookRow books={this.books}/>
+                          <StudentBookRow books={this.state.books}/>
                         </tbody>
                       </table>
                     </div>
