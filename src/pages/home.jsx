@@ -58,7 +58,9 @@ class Home extends Component {
         )}
         {showStudentDash && (
           <StudentDashboard>
-
+            <div className="container text-white">
+              <h3>Bienvenido {currentUser.first_name}</h3>
+            </div>
           </StudentDashboard>
         )}
       </div>

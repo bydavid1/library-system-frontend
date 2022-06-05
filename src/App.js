@@ -10,6 +10,8 @@ import UsersScreen from './pages/librarian/users-screen'
 import AddUserScreen from "./pages/librarian/add-user";
 import BooksScreen from "./pages/librarian/books-screen";
 import AddBookScreen from "./pages/librarian/add-book";
+import StudentBooksScreen from "./pages/student/student-books-screen";
+import StudentRequestsScreen from "./pages/student/student-requests-screen";
 
 import { history } from './helpers/history';
 
@@ -26,6 +28,8 @@ class App extends Component {
               <Route exact path="/user/add" component={AddUserScreen} />
               <Route exact path="/books" component={BooksScreen} />
               <Route exact path="/book/add" component={AddBookScreen} />
+              <Route exact path="/student/books" component={StudentBooksScreen} />
+              <Route exact path="/student/requests" component={StudentRequestsScreen} />
             </Switch>
         </div>
       </Router>
