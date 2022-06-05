@@ -4,34 +4,38 @@ import UserRow from '../../components/librarian/user-row';
 import LibrarianDashboard from '../../components/librarian-dashboard';
 import { Link } from 'react-router-dom';
 
+import userService from '../../services/user.service';
+
 class UsersScreen extends Component {
 
   constructor(props) {
     super(props);
 
-    this.users = [
-      {
-        created: '11/11/11',
-        email: 'Byron Jimenez',
-        first_name: 'Byron Jimenez',
-        last_name: 'The best book',
-        role: 'JOrge Shafick Handal' 
+    this.state = {
+      users: [],
+      message: null
+    }
+  }
+
+  componentDidMount() {
+    userService.getUsers()
+      .then(response => {
+        this.setState({
+          message: "",
+          users: response.data
+        })
       },
-      {
-        created: '11/11/11',
-        email: 'Byron Jimenez',
-        first_name: 'Byron Jimenez',
-        last_name: 'The best book',
-        role: 'JOrge Shafick Handal' 
-      },
-      {
-        created: '11/11/11',
-        email: 'Byron Jimenez',
-        first_name: 'Byron Jimenez',
-        last_name: 'The best book',
-        role: 'JOrge Shafick Handal' 
-      },
-    ];
+      error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
  
   render() { 
@@ -59,6 +63,13 @@ class UsersScreen extends Component {
                     <Link to='/user/add' className='btn btn-success'>Add user</Link>
                   </div>
                   <div className="card-body">
+                  {this.state.message && (
+                    <div className="form-group mb-4">
+                      <div className="alert alert-danger" role="alert">
+                        {this.state.message}
+                      </div>
+                    </div>
+                  )}
                     <div className="table-responsive">
                       <table className="table">
                         <thead>
@@ -72,7 +83,7 @@ class UsersScreen extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <UserRow users={this.users}/>
+                          <UserRow users={this.state.users}/>
                         </tbody>
                       </table>
                     </div>

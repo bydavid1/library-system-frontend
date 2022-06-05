@@ -8,8 +8,8 @@ class BookRow extends Component {
     const listItems = items.map((item, index) =>
       <tr className="inner-box" key={index}>
         <th scope="row">
-          <div className="event-date">
-            <span>{item.created_at}</span>
+          <div className="text-center">
+            <span>{item.createdAt}</span>
           </div>
         </th>
         <td>

@@ -8,8 +8,8 @@ class BorrowingRow extends Component {
     const listItems = items.map((item, index) =>
       <tr className="inner-box" key={index}>
         <th scope="row">
-          <div className="event-date">
-            <span>{item.date}</span>
+          <div className="event-date text-center">
+            <span>{item.createdAt}</span>
           </div>
         </th>
         <td>

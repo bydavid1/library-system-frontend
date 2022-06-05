@@ -7,9 +7,9 @@ import Login from './pages/login'
 import Home from './pages/home'
 import BorrowingsScreen from './pages/librarian/borrowings-screen'
 import UsersScreen from './pages/librarian/users-screen'
-import AddUserScreen from "./pages/librarian/add-user";
+import AddUserScreen from "./pages/librarian/add-user-screen";
 import BooksScreen from "./pages/librarian/books-screen";
-import AddBookScreen from "./pages/librarian/add-book";
+import AddBookScreen from "./pages/librarian/add-book-screen";
 import StudentBooksScreen from "./pages/student/student-books-screen";
 import StudentRequestsScreen from "./pages/student/student-requests-screen";
 

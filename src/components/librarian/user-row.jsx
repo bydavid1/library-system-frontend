@@ -8,8 +8,8 @@ class UserRow extends Component {
     const listItems = items.map((item, index) =>
       <tr className="inner-box" key={index}>
         <th scope="row">
-          <div className="event-date">
-            <span>{item.created}</span>
+          <div className="event-date text-center">
+            <span>{item.createdAt}</span>
           </div>
         </th>
         <td>
@@ -22,12 +22,11 @@ class UserRow extends Component {
           <p>{item.last_name}</p>
         </td>
         <td>
-          <p>{item.role}</p>
+          <p>{item.Role?.role_name}</p>
         </td>
         <td>
           <div className="primary-btn text-center">
-            <button className="btn btn-primary me-2">Accept</button>
-            <button className="btn btn-danger">Refuse</button>
+            <button className="btn btn-danger">Delete</button>
           </div>
         </td>
       </tr>

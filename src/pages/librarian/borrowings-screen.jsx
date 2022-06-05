@@ -2,32 +2,38 @@ import React, { Component } from 'react';
 
 import BorrowingRow from '../../components/librarian/borrowing-row';
 import LibrarianDashboard from '../../components/librarian-dashboard';
+import borrowingService from '../../services/borrowing.service';
 
 class BorrowingsScreen extends Component {
 
   constructor(props) {
     super(props);
 
-    this.borrowings = [
-      {
-        date: '11/11/11',
-        user_name: 'Byron Jimenez',
-        book_name: 'The best book',
-        book_author: 'JOrge Shafick Handal' 
+    this.state = {
+      borrowings: [],
+      message: null
+    }
+  }
+
+  componentDidMount() {
+    borrowingService.getAllBorrowings()
+      .then(response => {
+        this.setState({
+          message: "",
+          borrowings: response.data
+        })
       },
-      {
-        date: '11/11/11',
-        user_name: 'Byron Jimenez',
-        book_name: 'The best book',
-        book_author: 'JOrge Shafick Handal' 
-      },
-      {
-        date: '11/11/11',
-        user_name: 'Byron Jimenez',
-        book_name: 'The best book',
-        book_author: 'JOrge Shafick Handal' 
-      },
-    ];
+      error => {
+        this.setState({
+          message:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
  
   render() { 
@@ -52,6 +58,13 @@ class BorrowingsScreen extends Component {
               <div className="col-lg-12">
                 <div className="card">
                   <div className="card-body">
+                  {this.state.message && (
+                    <div className="form-group mb-4">
+                      <div className="alert alert-danger" role="alert">
+                        {this.state.message}
+                      </div>
+                    </div>
+                  )}
                     <div className="table-responsive">
                       <table className="table">
                         <thead>
@@ -64,7 +77,7 @@ class BorrowingsScreen extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <BorrowingRow borrowings={this.borrowings}/>
+                          <BorrowingRow borrowings={this.state.borrowings}/>
                         </tbody>
                       </table>
                     </div>

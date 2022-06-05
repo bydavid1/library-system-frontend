@@ -8,7 +8,7 @@ class AddUserScreen extends Component {
     this.goBack = this.goBack.bind(this);
   }
 
-  goBack(){
+  goBack() {
       this.props.history.goBack();
   }
 
