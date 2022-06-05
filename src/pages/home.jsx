@@ -13,6 +13,7 @@ import StudentDashboard from '../components/student-dashboard'
 class Home extends Component {
   constructor(props) {
     super(props);
+ 
 
     this.state = {
       currentUser: null,
@@ -47,12 +48,18 @@ class Home extends Component {
     const { currentUser, showLibrarianDash, showStudentDash } = this.state;
 
     return (
-      <div className="container">
+      <div>
         {showLibrarianDash && (
-          <LibrarianDashboard/>
+          <LibrarianDashboard>
+            <div className="container">
+              <h3>Bienvenido {currentUser.first_name}</h3>
+            </div>
+          </LibrarianDashboard>
         )}
         {showStudentDash && (
-          <StudentDashboard/>
+          <StudentDashboard>
+
+          </StudentDashboard>
         )}
       </div>
     );
