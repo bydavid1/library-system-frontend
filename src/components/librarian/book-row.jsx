@@ -25,6 +25,9 @@ class BookRow extends Component {
           <p>{item.genre}</p>
         </td>
         <td>
+          <p>{item.stock}</p>
+        </td>
+        <td>
           <div className="primary-btn text-center">
             <button className="btn btn-danger">Delete</button>
           </div>

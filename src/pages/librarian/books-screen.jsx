@@ -78,6 +78,7 @@ class BooksScreen extends Component {
                             <th scope="col">Author</th>
                             <th scope="col">Year published</th>
                             <th scope="col">Genre</th>
+                            <th scope="col">Stock</th>
                             <th className="text-center" scope="col">Action</th>
                           </tr>
                         </thead>

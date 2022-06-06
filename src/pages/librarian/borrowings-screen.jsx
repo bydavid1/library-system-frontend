@@ -23,7 +23,6 @@ class BorrowingsScreen extends Component {
     borrowingService.getAllBorrowings()
       .then(response => {
         this.setState({
-          message: "",
           borrowings: response.data
         })
       },
