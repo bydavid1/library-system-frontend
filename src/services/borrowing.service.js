@@ -12,15 +12,27 @@ class BorrowingService {
   }
 
   confirmBorrowing(id) {
-    return axios.put(API_URL + `borrowing/${id}/confirm`, { headers: authHeader() });
+    return axios({
+      method: 'put',
+      url: API_URL + `book/borrowing/${id}/confirm`,
+      headers: authHeader(), 
+    });
   }
 
   refuseBorrowing(id) {
-    return axios.put(API_URL + `borrowing/${id}/refuse`, { headers: authHeader() });
+    return axios({
+      method: 'put',
+      url: API_URL + `book/borrowing/${id}/refuse`,
+      headers: authHeader(), 
+    }); 
   }
 
   returnBook(id) {
-    return axios.put(API_URL + `book/return/${id}`, { headers: authHeader() });
+    return axios({
+      method: 'put',
+      url: API_URL + `book/return/${id}`,
+      headers: authHeader(), 
+    }); 
   }
 }
 
