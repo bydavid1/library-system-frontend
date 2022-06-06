@@ -10,8 +10,11 @@ class StudentBooksScreen extends Component {
     
     this.state = {
       books: [],
+      success: false,
       message: ""
     }
+    
+    this.requestBook = this.requestBook.bind(this);
   }
 
   componentDidMount() {
@@ -19,15 +22,15 @@ class StudentBooksScreen extends Component {
   }
 
   getBooksForStudent() {
-    bookService.getBooksForStudent()
+    bookService.getBooks()
       .then(response => {
         this.setState({
-          message: "",
           books: response.data
         })
       },
       error => {
         this.setState({
+          success: false,
           message:
             (error.response &&
               error.response.data &&
@@ -38,13 +41,19 @@ class StudentBooksScreen extends Component {
       }
     );
   }
-  returnBook(id) {
+
+  requestBook(id) {
     bookService.requestBook(id)
       .then(response => {
-        console.log(response.data);
+        this.setState({
+          success: true,
+          message: response.data.message ?? 'Requested successfully'
+        })
         this.getBooksForStudent();
       }).catch(error => {
+        console.log(error)
         this.setState({
+          success: false,
           message:
             (error.response &&
               error.response.data &&
@@ -79,7 +88,7 @@ class StudentBooksScreen extends Component {
                   <div className="card-body">
                   {this.state.message && (
                     <div className="form-group mb-4">
-                      <div className="alert alert-danger" role="alert">
+                      <div className={`alert ${this.state.success ? 'alert-success' : 'alert-danger'}`} role="alert">
                         {this.state.message}
                       </div>
                     </div>
@@ -98,7 +107,7 @@ class StudentBooksScreen extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <StudentBookRow books={this.state.books}/>
+                          <StudentBookRow books={this.state.books} onRequest={this.requestBook}/>
                         </tbody>
                       </table>
                     </div>

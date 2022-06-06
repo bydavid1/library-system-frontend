@@ -13,6 +13,10 @@ class BorrowingsScreen extends Component {
       borrowings: [],
       message: null
     }
+
+    this.confirmBorrowing = this.confirmBorrowing.bind(this);
+    this.refuseBorrowing = this.refuseBorrowing.bind(this);
+    this.returnBook = this.returnBook.bind(this);
   }
 
   getAllBorrowings() {
@@ -41,7 +45,7 @@ class BorrowingsScreen extends Component {
   }
 
   confirmBorrowing(id) {
-    borrowingService.confirmBorrowing()
+    borrowingService.confirmBorrowing(id)
       .then(response => {
         console.log(response.data);
         this.getAllBorrowings();
@@ -58,7 +62,7 @@ class BorrowingsScreen extends Component {
   }
 
   refuseBorrowing(id) {
-    borrowingService.refuseBorrowing()
+    borrowingService.refuseBorrowing(id)
       .then(response => {
         console.log(response.data);
         this.getAllBorrowings();
@@ -75,7 +79,7 @@ class BorrowingsScreen extends Component {
   }
 
   returnBook(id) {
-    borrowingService.returnBook()
+    borrowingService.returnBook(id)
       .then(response => {
         console.log(response.data);
         this.getAllBorrowings();

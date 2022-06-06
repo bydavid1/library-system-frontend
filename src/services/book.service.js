@@ -6,10 +6,6 @@ class BookService {
   getBooks() {
     return axios.get(API_URL + 'book', { headers: authHeader() });
   }
-  
-  getBooksForStudent() {
-    return axios.get(API_URL + 'book/student', { headers: authHeader() });
-  }
 
   storeBook(book) {
     return axios({
@@ -21,7 +17,11 @@ class BookService {
   }
 
   requestBook(id) {
-    return axios.get(API_URL + `book/${id}/request`, { headers: authHeader() });
+    return axios({
+      method: 'post',
+      url: API_URL + `book/${id}/request`,
+      headers: authHeader()
+    });
   }
 }
 

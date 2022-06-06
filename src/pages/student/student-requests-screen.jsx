@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import StudentDashboard from '../../components/student-dashboard';
 import StudentRequestRow from '../../components/student/student-request-row';
+import borrowingService from '../../services/borrowing.service';
 
 class StudentRequestsScreen extends Component {
   constructor(props) {
     super(props);
     
-    this.requests = [
-      {
-        created_at: '11/11/11',
-        book_name: 'The best book',
-        status: 'Accepted',
-      },
-      {
-        created_at: '11/11/11',
-        book_name: 'The best book',
-        status: 'Accepted',
-      },
-      {
-        created_at: '11/11/11',
-        book_name: 'The best book',
-        status: 'Accepted',
-      },
-    ];
+    this.state = {
+      requests: [],
+      message: ""
+    }
+  }
+
+  componentDidMount() {
+    borrowingService.getBorrowingsByUser()
+    .then(response => {
+      this.setState({
+        requests: response.data
+      })
+    },
+    error => {
+      this.setState({
+        message:
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString()
+      });
+    }
+  );
   }
 
   render() { 
@@ -58,7 +66,7 @@ class StudentRequestsScreen extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <StudentRequestRow requests={this.requests}/>
+                          <StudentRequestRow requests={this.state.requests}/>
                         </tbody>
                       </table>
                     </div>

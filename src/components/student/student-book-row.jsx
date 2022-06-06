@@ -30,7 +30,7 @@ class StudentBookRow extends Component {
             </td>
             <td>
               <div className="primary-btn text-center">
-                <button className="btn btn-success">Request</button>
+                <button className="btn btn-success" onClick={() => this.props.onRequest(item.id)}>Request</button>
               </div>
             </td>
           </tr>

@@ -7,6 +7,10 @@ class BorrowingService {
     return axios.get(API_URL + 'borrowing', { headers: authHeader() });
   }
 
+  getBorrowingsByUser(id) {
+    return axios.get(API_URL + `borrowing/user`, { headers: authHeader() });
+  }
+
   confirmBorrowing(id) {
     return axios.put(API_URL + `borrowing/${id}/confirm`, { headers: authHeader() });
   }
