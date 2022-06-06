@@ -23,6 +23,17 @@ class BookService {
       headers: authHeader()
     });
   }
+
+  searchBook(query) {
+    return axios({
+      method: 'post',
+      url: API_URL + `book/search`,
+      headers: authHeader(true),
+      data: {
+        query: query
+      }
+    });
+  }
 }
 
 export default new BookService();

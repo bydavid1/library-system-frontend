@@ -10,10 +10,13 @@ class StudentBooksScreen extends Component {
     
     this.state = {
       books: [],
+      query: '',
       success: false,
       message: ""
     }
     
+    this.search = this.search.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.requestBook = this.requestBook.bind(this);
   }
 
@@ -64,6 +67,40 @@ class StudentBooksScreen extends Component {
       })
   }
 
+  search(e) {
+    e.preventDefault();
+    if (this.state.query != '') {
+      bookService.searchBook(this.state.query)
+        .then(response => {
+          console.log(response);
+          this.setState({
+            books: response.data
+          })
+        },
+        error => {
+          this.setState({
+            success: false,
+            message:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    } else {
+      this.setState({
+        success: false,
+        message: 'Search input must be filled'
+      });
+    }
+  }
+
+  handleChange(event) {
+    this.setState({query: event.target.value});
+  }
+
   render() { 
     return (
       <StudentDashboard>
@@ -80,6 +117,16 @@ class StudentBooksScreen extends Component {
                     cum te, sea lorem instructior at.
                   </p>
                 </div>
+              </div>
+              <div className="col-md-8">
+                <form className="form-inline">
+                  <div className="input-group mb-3">
+                    <input type="text" className="form-control" value={this.state.query} onChange={this.handleChange} placeholder='Search by title, author or genre'/>
+                    <div className="input-group-append">
+                      <button className="btn btn-primary" type="submit" onClick={this.search}>Search</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
             <div className="row">

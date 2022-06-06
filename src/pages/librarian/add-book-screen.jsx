@@ -12,6 +12,7 @@ class AddBookScreen extends Component {
       author: '',
       published_year: 2000,
       genre: '',
+      stock: 0,
       success: false,
       message: ''
       
@@ -40,6 +41,7 @@ class AddBookScreen extends Component {
       author: this.state.author,
       published_year: this.state.published_year,
       genre: this.state.genre,
+      stock: this.state.stock
     })
       .then(response => {
         console.log(response);
@@ -97,9 +99,13 @@ class AddBookScreen extends Component {
               <label className="form-label">Published year</label>
               <input type="number" className="form-control" name= 'published_year' value={this.state.published_year} onChange={this.handleInputChange}/>
             </div>
-            <div className='mb-5'>
+            <div className='mb-3'>
               <label className="form-label">Genre</label>
               <input type="text" className="form-control" name='genre' value={this.state.genre} onChange={this.handleInputChange}/>
+            </div>
+            <div className='mb-5'>
+              <label className="form-label">Stock</label>
+              <input type="number" min="0" className="form-control" name='stock' value={this.state.stock} onChange={this.handleInputChange}/>
             </div>
             <div className='row'>
               <div className="col">
